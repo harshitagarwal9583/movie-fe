@@ -1,0 +1,263 @@
+# Movie Recommendation System - Frontend
+
+## 🛠 Setup Instructions
+
+### 1. Install Dependencies
+```bash
+cd frontend
+npm install
+```
+
+### 2. Run Development Server
+```bash
+npm run dev
+```
+
+The frontend will run on **http://localhost:3000**
+
+### 3. Build for Production
+```bash
+npm run build
+```
+
+## 🎨 Features Included
+
+- **Netflix-style Dark UI** - Modern, clean design with Tailwind CSS
+- **Authentication Pages** - Signup, Login, OTP verification
+- **Movie Filter System** - Genre, Mood, Release Year, Rating
+- **AI Recommendations** - Get personalized movie suggestions
+- **Movie Grid Display** - Beautiful grid with posters and ratings
+- **Responsive Design** - Works on mobile, tablet, desktop
+- **Axios Integration** - API client with auto token injection
+- **Framer Motion** - Smooth animations on hover
+- **Favorites System** - Save movies to favorites
+
+## 📋 Pages & Components
+
+### Pages
+
+**Auth.jsx** - Authentication page
+- Signup form with name, email, password
+- Login form
+- OTP verification step
+- Email resend functionality
+- Form validation
+
+**Home.jsx** - Main recommendation page
+- Movie filter controls (genre, mood, year, rating)
+- Get recommendations button
+- Movie grid display
+- Movie posters with ratings
+- Add to favorites button
+- Hover animations and details
+
+### Components
+
+**Navbar.jsx** - Top navigation
+- Logo/branding
+- Login/Logout buttons
+- User menu (coming soon)
+
+## 🚀 Technologies Used
+
+- **React 18** - UI library
+- **Vite** - Fast build tool & dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **React Router v6** - Client-side routing
+- **Axios** - HTTP client for API calls
+
+## 🔗 API Integration
+
+### Backend Connection
+The frontend connects to backend running on `http://localhost:5000`
+
+### API Endpoints Used
+
+**Authentication** (`/api/auth`)
+- `POST /signup` - Create new account
+- `POST /verify-otp` - Verify email
+- `POST /resend-otp` - Resend OTP
+- `POST /login` - Login user
+
+**Movies** (`/api/movies`)
+- `GET /recommend` - Get AI recommendations with filters
+- `GET /search` - Search movie by title
+- `POST /favorite` - Add to favorites (requires token)
+- `POST /wishlist` - Add to wishlist (requires token)
+- `POST /history` - Add to watch history (requires token)
+- `GET /profile` - Get user profile (requires token)
+
+### Token Management
+
+- Automatically saved to `localStorage` after login
+- Automatically attached to protected API requests
+- Automatically removed on logout
+
+## 📂 Folder Structure
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   └── Navbar.jsx           # Top navigation component
+│   ├── pages/
+│   │   ├── Home.jsx             # Movie recommendations & filters
+│   │   └── Auth.jsx             # Login/Signup/OTP page
+│   ├── api/
+│   │   ├── client.js            # Axios HTTP client setup
+│   │   └── auth.js              # API method definitions
+│   ├── styles/
+│   │   └── index.css            # Global styles & Tailwind
+│   ├── App.jsx                  # Main app router
+│   └── main.jsx                 # React entry point
+├── public/                       # Static files
+├── index.html                    # HTML entry
+├── vite.config.js               # Vite configuration
+├── tailwind.config.js           # Tailwind configuration
+├── postcss.config.js            # PostCSS configuration
+├── .gitignore                   # Git ignore file
+├── package.json                 # Dependencies
+└── README.md                    # This file
+```
+
+## 🎨 UI/UX Highlights
+
+### Color Scheme
+- **Background**: Dark (#0f0f0f, #1a1a1a)
+- **Primary Color**: Red (#e50914) - Netflix style
+- **Text**: White with gray variations
+- **Borders**: Gray with opacity
+
+### Responsive Breakpoints
+- **Mobile**: 1 column for movies
+- **Tablet**: 2-3 columns
+- **Desktop**: 4-5 columns
+
+### Animations
+- Hover scale on movie posters (1.05x)
+- Button hover effects
+- Smooth transitions on all interactive elements
+- Fade in/out animations
+
+## 📝 Example Workflow
+
+1. **User Signup**
+   - Fill signup form with name, email, password
+   - Click "Sign Up" → OTP sent to email
+   - Enter 6-digit OTP
+   - Click "Verify OTP" → Account created
+
+2. **User Login**
+   - Enter email and password
+   - Click "Login" → Redirected to home page
+   - JWT token saved in localStorage
+
+3. **Get Recommendations**
+   - Select filters (genre, mood, year, rating)
+   - Click "Get Recommendations"
+   - See list of 10 movies with posters
+   - Hover on movie to see details and add to favorites
+
+4. **Add to Favorites**
+   - Click "❤️ Favorite" button on movie
+   - Movie saved to user's favorites
+   - Can view later in profile
+
+## 🔒 Authentication Flow
+
+1. User provides email/password
+2. Frontend sends to `/api/auth/login`
+3. Backend verifies credentials
+4. Backend returns JWT token
+5. Frontend stores token in localStorage
+6. Token auto-attached to future requests
+7. On logout, token removed from localStorage
+
+## 🛠 Development
+
+### Start Development Server
+```bash
+npm run dev
+```
+
+### Make API Calls
+```jsx
+import { movieAPI } from '../api/auth';
+
+// Get recommendations
+const response = await movieAPI.getRecommendations({
+  genre: 'Action',
+  mood: 'Thrilling',
+  year: 'Latest',
+  rating: 'Top Rated'
+});
+
+// Add to favorites (requires token)
+await movieAPI.addToFavorites(movieId);
+```
+
+### Add New Components
+1. Create component file in `src/components/`
+2. Import and use in pages/App
+3. Use Tailwind for styling
+4. Use Framer Motion for animations
+
+### Customize Styles
+- Edit `tailwind.config.js` for colors, fonts, spacing
+- Edit `src/styles/index.css` for global styles
+- Use Tailwind utility classes in JSX
+
+## 🚀 Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+Output goes to `dist/` folder
+
+### Deploy to Vercel (Recommended)
+```bash
+npm install -g vercel
+vercel
+```
+
+### Deploy to Netlify
+```bash
+npm run build
+# Then drag dist/ folder to Netlify
+```
+
+## ⚠️ Important Notes
+
+- **Backend must be running** on `http://localhost:5000` during development
+- **CORS enabled** in backend for frontend communication
+- **Token expires** in 7 days
+- **All API calls** automatically include token if available
+- **Mobile responsive** - test on different screen sizes
+
+## 🐛 Troubleshooting
+
+**Frontend can't reach backend?**
+- Check backend is running: `npm run dev` in backend folder
+- Check backend URL in `src/api/client.js`
+- Check CORS is enabled in backend
+
+**Token not working?**
+- Check localStorage has token
+- Check token is being attached to headers
+- Check backend JWT_SECRET matches
+
+**Styles not loading?**
+- Restart dev server
+- Clear browser cache
+- Check Tailwind is configured in vite.config.js
+
+## 📞 Support
+
+See the main [README.md](../README.md) for overall project info.
+See [backend/README.md](../backend/README.md) for API documentation.
+
+---
+
+🎬 **Beautiful, modern movie recommendation experience** ✨
