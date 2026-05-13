@@ -15,9 +15,13 @@ export default function Navbar({ isLoggedIn }) {
     <nav className="bg-darker border-b border-gray-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
+<<<<<<< HEAD
           <Link to="/" className="text-2xl font-bold text-primary">
             🎬 MovieFlix
           </Link>
+=======
+          <h1 className="text-2xl font-bold text-primary">🎬 MovieFlix</h1>
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
         </div>
 
         <div className="flex gap-4">

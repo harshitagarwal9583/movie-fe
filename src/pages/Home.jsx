@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -8,6 +9,13 @@ export default function Home() {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
+=======
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { movieAPI } from '../api/auth';
+
+export default function Home() {
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
   const [filters, setFilters] = useState({
     genre: 'Action',
     mood: 'Thrilling',
@@ -20,6 +28,7 @@ export default function Home() {
   const [message, setMessage] = useState('');
   const [trailerLoading, setTrailerLoading] = useState(false);
 
+<<<<<<< HEAD
   const [movieSearchQuery, setMovieSearchQuery] = useState('');
   const [showMovieDropdown, setShowMovieDropdown] = useState(false);
   const [catalogMovies, setCatalogMovies] = useState([]);
@@ -27,11 +36,14 @@ export default function Home() {
   const [loadingCatalog, setLoadingCatalog] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+=======
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     if (!showMovieDropdown) {
       return;
@@ -84,6 +96,15 @@ export default function Home() {
 
       setMovies(response.data.movies || []);
       if ((response.data.movies || []).length === 0) {
+=======
+  const handleGetRecommendations = async () => {
+    setLoading(true);
+    setMessage('');
+    try {
+      const response = await movieAPI.getRecommendations(filters);
+      setMovies(response.data.movies || []);
+      if (response.data.movies.length === 0) {
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
         setMessage('No movies found for these filters.');
       } else {
         setMessage(`Found ${response.data.movies.length} movies!`);
@@ -103,7 +124,10 @@ export default function Home() {
         setMessage('Please login to add to favorites');
         return;
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
       await movieAPI.addToFavorites({ movieName: movieTitle });
       setMessage('Added to favorites!');
     } catch (error) {
@@ -113,6 +137,7 @@ export default function Home() {
   };
 
   const openTrailer = async (movie) => {
+<<<<<<< HEAD
     const trailerLink = buildTrailerUrl({ trailerUrl: movie?.trailer, movieTitle: movie?.title });
     const trailerTab = window.open(trailerLink, '_blank', 'noopener,noreferrer');
 
@@ -121,15 +146,35 @@ export default function Home() {
       return;
     }
 
+=======
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
     try {
       setTrailerLoading(true);
 
       const token = localStorage.getItem('token');
       if (token) {
+<<<<<<< HEAD
         movieAPI.addToHistory({ movieName: movie.title }).catch((error) => {
           console.error('History update error:', error);
         });
       }
+=======
+        await movieAPI.addToHistory({ movieName: movie.title });
+      }
+
+      let trailerUrl = movie.trailer;
+
+      if (!trailerUrl) {
+        const response = await movieAPI.searchMovies(movie.title);
+        trailerUrl = response.data.movie?.trailer;
+      }
+
+      if (!trailerUrl) {
+        trailerUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${movie.title} trailer`)}`;
+      }
+
+      window.open(trailerUrl, '_blank', 'noopener,noreferrer');
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
     } catch (error) {
       console.error('Trailer error:', error);
       setMessage('Could not open trailer right now.');
@@ -140,11 +185,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-dark via-darker to-dark">
+<<<<<<< HEAD
+=======
+      {/* Hero Section */}
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="max-w-7xl mx-auto px-4 py-16"
       >
+<<<<<<< HEAD
         <div className="flex items-end justify-between gap-4 flex-wrap mb-8">
           <div>
             <h2 className="text-5xl font-bold text-white mb-2">
@@ -235,6 +285,19 @@ export default function Home() {
             )}
           </div>
 
+=======
+        <h2 className="text-5xl font-bold text-white mb-2">
+          Discover Your Next <span className="text-primary">Favorite Movie</span>
+        </h2>
+        <p className="text-xl text-gray-300 mb-8">
+          AI-powered recommendations just for you
+        </p>
+
+        {/* Filters Section */}
+        <div className="bg-darker rounded-lg p-8 border border-gray-700 mb-12">
+          <h3 className="text-2xl font-bold mb-6 text-white">Customize Your Search</h3>
+
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div>
               <label className="block text-gray-300 font-semibold mb-2">Genre</label>
@@ -242,15 +305,22 @@ export default function Home() {
                 name="genre"
                 value={filters.genre}
                 onChange={handleFilterChange}
+<<<<<<< HEAD
                 className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary"
+=======
+                className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-2 rounded focus:outline-none focus:border-primary"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
               >
                 <option>Action</option>
                 <option>Comedy</option>
                 <option>Thriller</option>
                 <option>Drama</option>
                 <option>Sci-Fi</option>
+<<<<<<< HEAD
                 <option>Romance</option>
                 <option>Horror</option>
+=======
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
               </select>
             </div>
 
@@ -260,7 +330,11 @@ export default function Home() {
                 name="mood"
                 value={filters.mood}
                 onChange={handleFilterChange}
+<<<<<<< HEAD
                 className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary"
+=======
+                className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-2 rounded focus:outline-none focus:border-primary"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
               >
                 <option>Thrilling</option>
                 <option>Funny</option>
@@ -275,7 +349,11 @@ export default function Home() {
                 name="year"
                 value={filters.year}
                 onChange={handleFilterChange}
+<<<<<<< HEAD
                 className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary"
+=======
+                className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-2 rounded focus:outline-none focus:border-primary"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
               >
                 <option>Latest</option>
                 <option>Old Classics</option>
@@ -290,7 +368,11 @@ export default function Home() {
                 name="rating"
                 value={filters.rating}
                 onChange={handleFilterChange}
+<<<<<<< HEAD
                 className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary"
+=======
+                className="w-full bg-gray-800 border border-gray-600 text-white px-4 py-2 rounded focus:outline-none focus:border-primary"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
               >
                 <option>Top Rated</option>
                 <option>8+ IMDb</option>
@@ -303,7 +385,11 @@ export default function Home() {
           <button
             onClick={handleGetRecommendations}
             disabled={loading}
+<<<<<<< HEAD
             className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition disabled:opacity-50"
+=======
+            className="w-full bg-primary text-white py-3 rounded font-bold text-lg hover:bg-red-700 transition disabled:opacity-50"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
           >
             {loading ? 'Getting Recommendations...' : 'Get Recommendations'}
           </button>
@@ -315,6 +401,7 @@ export default function Home() {
           )}
         </div>
 
+<<<<<<< HEAD
         {movies.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-6">
@@ -331,6 +418,22 @@ export default function Home() {
                   className="rounded-2xl overflow-hidden cursor-pointer group border border-gray-800 bg-[#10131a] shadow-xl shadow-black/10"
                 >
                   <div className="aspect-[2/3] bg-gray-900 relative overflow-hidden">
+=======
+        {/* Movies Grid */}
+        {movies.length > 0 && (
+          <div>
+            {message && (
+              <p className="text-center text-green-400 mb-6 text-lg">{message}</p>
+            )}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {movies.map((movie, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="rounded-lg overflow-hidden cursor-pointer group"
+                >
+                  <div className="bg-gray-800 aspect-video flex items-center justify-center rounded-lg relative">
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
                     {movie.posterPath ? (
                       <img
                         src={movie.posterPath}
@@ -338,6 +441,7 @@ export default function Home() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
+<<<<<<< HEAD
                       <div className="w-full h-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-950 flex flex-col items-center justify-center px-4 text-center">
                         <span className="text-white font-semibold text-sm">{movie.title}</span>
                         <span className="text-gray-400 text-xs mt-2">{movie.genres?.slice(0, 2).join(' • ')}</span>
@@ -361,11 +465,29 @@ export default function Home() {
                           handleAddToFavorites(movie.title);
                         }}
                         className="text-white text-sm font-semibold bg-white/10 backdrop-blur px-3 py-2 rounded-lg hover:bg-white/20 transition"
+=======
+                      <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <span className="text-gray-400 text-center px-2 text-sm">{movie.title}</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition flex flex-col items-center justify-center gap-2">
+                      <button
+                        onClick={() => openTrailer(movie)}
+                        disabled={trailerLoading}
+                        className="text-white text-xl opacity-0 group-hover:opacity-100 transition disabled:opacity-50"
+                      >
+                        ▶ Watch
+                      </button>
+                      <button
+                        onClick={() => handleAddToFavorites(movie.title)}
+                        className="text-white opacity-0 group-hover:opacity-100 transition text-sm"
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
                       >
                         ❤️ Favorite
                       </button>
                     </div>
                   </div>
+<<<<<<< HEAD
 
                   <div className="p-3">
                     <h4 className="text-sm font-bold text-white truncate">{movie.title}</h4>
@@ -373,6 +495,12 @@ export default function Home() {
                       <span>{movie.releaseYear || movie.releaseDate?.substring(0, 4) || 'N/A'}</span>
                       <span className="text-yellow-400">⭐ {movie.rating?.toFixed(1)}</span>
                     </div>
+=======
+                  <div className="bg-darker p-2 hidden group-hover:block">
+                    <h4 className="text-sm font-bold text-white truncate">{movie.title}</h4>
+                    <p className="text-xs text-gray-400">{movie.releaseDate?.substring(0, 4)}</p>
+                    <p className="text-xs text-yellow-400">⭐ {movie.rating?.toFixed(1)}</p>
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
                   </div>
                 </motion.div>
               ))}
@@ -381,13 +509,23 @@ export default function Home() {
         )}
 
         {movies.length === 0 && !loading && (
+<<<<<<< HEAD
           <div className="text-center py-16">
             <p className="text-gray-400 text-lg">
               Select a movie or adjust filters, then click "Get Recommendations".
+=======
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-lg">
+              Select filters and click "Get Recommendations" to see movies
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
             </p>
           </div>
         )}
       </motion.div>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892

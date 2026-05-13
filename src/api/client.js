@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+<<<<<<< HEAD
 const API_BASE_URL = 'http://localhost:5000/api';
 // const API_BASE_URL = 'https://movie-be-rsbm.onrender.com/api';
+=======
+// const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://movie-be-rsbm.onrender.com/api';
+
+>>>>>>> 1751861220f524a08303658c6567cce49bdc6892
 
 const client = axios.create({
   baseURL: API_BASE_URL,
