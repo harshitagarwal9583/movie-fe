@@ -40,7 +40,9 @@ export default function MovieDetail() {
 
         const token = localStorage.getItem('token');
         if (token && movieData?.title) {
-          await movieAPI.addToHistory({ movieName: movieData.title });
+          movieAPI.addToHistory({ movieName: movieData.title }).catch((error) => {
+            console.error('Failed to add to history:', error);
+          });
         }
       } catch (err) {
         setError('Failed to load movie details');

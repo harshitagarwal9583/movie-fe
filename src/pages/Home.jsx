@@ -155,7 +155,7 @@ export default function Home() {
           </div>
 
           <div className="text-sm text-gray-400 bg-gray-900/60 border border-gray-700 rounded-full px-4 py-2">
-            Catalog: {catalogTotal || 4803} movies
+            Catalog: {catalogTotal ?? 4803} movies
           </div>
         </div>
 
@@ -187,7 +187,7 @@ export default function Home() {
                       >
                         <div className="flex items-start gap-3">
                           <div className="w-11 h-16 rounded-lg bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-xs text-gray-300 font-semibold shrink-0">
-                            {movie.title.slice(0, 2).toUpperCase()}
+                            {(movie.title || '').slice(0, 2).toUpperCase()}
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-2">
