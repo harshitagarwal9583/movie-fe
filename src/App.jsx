@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Profile from './pages/Profile';
+import MovieDetail from './pages/MovieDetail';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={isLoggedIn ? <Navigate to="/" /> : <Auth />} />
         <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/auth" />} />
+        <Route path="/movie/:movieId" element={<MovieDetail />} />
       </Routes>
     </Router>
   );
